@@ -5,7 +5,7 @@ app = (function() {
   function getData() {
     $.ajax({
       dataType: 'json',
-      url: 'gems.json',
+      url: '/data/gems.json',
       success: function(d) {
         data = d;
         loader();
