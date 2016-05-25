@@ -12,6 +12,7 @@ GEM
       websocket-driver (>= 0.5.1)
     multi_json (1.12.1)
     multipart-post (2.0.0)
+    rack (1.6.4)
     slack-api (1.2.3)
       faraday (>= 0.7, < 0.10)
       faraday_middleware (~> 0.8)
@@ -26,6 +27,7 @@ PLATFORMS
 
 DEPENDENCIES
   dotenv
+  rack
   slack-api
 
 BUNDLED WITH
