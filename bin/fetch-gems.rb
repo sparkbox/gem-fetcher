@@ -48,5 +48,5 @@ loop do
 end
 
 File.open('public/data/gems-approved.json', 'w')  do |f|
-  f.write $messages.to_json
+  f.write $messages.reverse.to_json
 end

@@ -52,6 +52,7 @@ app = (function() {
   function fixedGem(gem) {
     return gem.replace(/\r?\\n/g, '<br>').replace(/\\"/g, '"').replace('"&gt;', '');
   }
+
   (function init() {
     if (data === null) {
       getData();
