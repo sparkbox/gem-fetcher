@@ -20,26 +20,33 @@ def get_messages(ts)
   messages = data["messages"]
   puts "We have #{messages.count} messages starting at '#{ts}' time"
   messages.each do |message|
-    user_name = $users[message["user"]]
-    text = message["text"].inspect
-    if /\<\@(U[A-Z0-9]+)\>/.match(text)
-      users_mentioned = text.scan(/\<\@(U[A-Z0-9]+)\>/)
-      users_mentioned.each do |u|
-        user_mention = $users[u[0]]
-        text = text.sub("<@#{u[0]}>", "@#{user_mention}")
+    if reactions = message["reactions"]
+      reactions.each do |r|
+        if r["name"] == "earth_americas"
+          user_name = $users[message["user"]]
+          text = message["text"].inspect
+
+          if users_mentioned = text.scan(/\<\@(U[A-Z0-9]+)\>/)
+            users_mentioned.each do |u|
+              user_mention = $users[u[0]]
+              text = text.sub("<@#{u[0]}>", "@#{user_mention}")
+            end
+          end
+          $messages.push("#{user_name}: #{text}")
+          puts "gem count #{$messages.count}"
+        end
       end
-      $messages.push("#{user_name}: #{text}")
     end
-    $last_ts = message['ts']
+  $last_ts = message["ts"]
   end
+
   data["has_more"]
 end
-
 loop do
   puts $last_ts
   break if !get_messages($last_ts)
 end
 
-File.open('public/data/gems.json', 'w')  do |f|
+File.open('public/data/gems-approved.json', 'w')  do |f|
   f.write $messages.to_json
 end
