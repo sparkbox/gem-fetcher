@@ -1,2 +1,2 @@
 .env
-gems.json
+tmp/gems.json
