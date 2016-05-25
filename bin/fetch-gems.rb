@@ -40,6 +40,6 @@ loop do
   break if !get_messages($last_ts)
 end
 
-File.open('tmp/gems.json', 'w')  do |f|
+File.open('public/data/gems.json', 'w')  do |f|
   f.write $messages.to_json
 end
