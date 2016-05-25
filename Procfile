@@ -1,1 +1,2 @@
-web: ruby bin/fetch-gems.rb
+worker: ruby bin/fetch-gems.rb
+web: rackup
