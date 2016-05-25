@@ -68,3 +68,12 @@ body {
   position: relative;
   background: white;
 }
+
+.soft {
+  font-size: 0.85rem;
+  color: #408491;
+}
+
+.soft .link {
+  color: #4A777F;
+}
