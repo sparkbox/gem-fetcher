@@ -51,11 +51,13 @@ var app = (function() {
   }
 
   function runShow($target) {
+    $('.bar-inner-hold').removeClass('bar-inner');
     if ($target && !$target.hasClass('running')) {
       $target.text('Stop show').addClass('running');
       $('.bar-timer').show();
       $('.bar-inner-hold').addClass('bar-inner');
     }
+    $('.bar-inner-hold').addClass('bar-inner');
     show = setTimeout(runShow, SHOW_TIMEOUT);
     getRandom();
   }
@@ -101,7 +103,7 @@ var app = (function() {
 }
 
   function fixedGem(gem) {
-    return gem.replace(/\r?\\n/g, '<br>').replace(/\\"/g, '"').replace('"&gt;', '');
+    return gem.replace(/\r?\\n/g, '<br>').replace(/(\")|(\\)|(\”)|(\“)/g, '').replace(/\&gt\;/g, '');
   }
 
   (function init() {
