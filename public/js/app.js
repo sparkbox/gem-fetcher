@@ -1,6 +1,8 @@
-app = (function() {
+var app = (function() {
 
-  var data = null;
+  var data = null,
+      show = null,
+      SHOW_TIMEOUT = 30 * 1000 ; // 30 seconds
 
   function getData() {
     $.ajax({
@@ -15,11 +17,56 @@ app = (function() {
   }
 
   function getRandom() {
+    // This is making history messed up, use something else to
+    // get a new random/gem.
     window.location.hash = '';
     loader();
   }
 
-  $('.random').on('click', getRandom);
+  $('.random').on('click', randomClick);
+
+  $('.toggleShow').on('click', toggleShow);
+
+  $('.linky').on('click', checkShow);
+
+  function toggleShow(e) {
+    var $target = $(e.target);
+    if ($target.hasClass('running')) {
+      stopShow($target);
+    } else {
+      runShow($target);
+    }
+  }
+
+  function randomClick() {
+    checkShow();
+    getRandom();
+  }
+
+  function checkShow() {
+    var $target = $('.toggleShow');
+    if ($target.hasClass('running')) {
+      stopShow($target);
+    }
+  }
+
+  function runShow($target) {
+    if ($target && !$target.hasClass('running')) {
+      $target.text('Stop show').addClass('running');
+      $('.bar-timer').show();
+      $('.bar-inner-hold').addClass('bar-inner');
+    }
+    show = setInterval(runShow, SHOW_TIMEOUT);
+    getRandom();
+  }
+
+  function stopShow($target) {
+    $target.removeClass('running').text('Start show');
+    $('.bar-timer').hide();
+    $('.bar-inner-hold').removeClass('bar-inner');
+    clearTimeout(show);
+    show = null;
+  }
 
   function loader() {
     var id = getGemIndex();
@@ -46,6 +93,8 @@ app = (function() {
   function setGem(gem, id) {
     $('.gem').html(fixedGem(gem));
     $('.linky').attr('href', '#' + id).text('Link this Gem!');
+    window.location.hash = id;
+    // history.pushState(null, null, '#' + id);
     emojify.run();
   }
 
@@ -60,6 +109,8 @@ app = (function() {
       loader();
     }
   })();
+
+
 
   return {
     loader: loader

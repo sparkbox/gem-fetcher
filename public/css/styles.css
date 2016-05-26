@@ -62,7 +62,7 @@ body {
 
 .button {
   color: #1c4c54;
-  font-size: .875em;
+  font-size: 1rem;
   font-weight: 700;
   display: block;
   text-align: center;
@@ -72,6 +72,11 @@ body {
   background: white;
 }
 
+.button.running{
+  color: #3ea9be;
+}
+
+
 .soft {
   font-size: 0.85rem;
   color: #408491;
@@ -79,4 +84,32 @@ body {
 
 .soft .link {
   color: #4A777F;
+}
+
+/* Bars */
+@-webkit-keyframes bar-slide {
+  0%   { width: 0%;   }
+  100% { width: 100%; }
+}
+
+.bar-timer {
+  margin: 30px 0;
+  height: 10px;
+  width: 220px;
+  border: 1px solid #222;
+  position: relative;
+  -webkit-border-radius: 3px;
+  box-shadow: #333 0px 0px 7px;
+}
+
+.bar-inner {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  background: #4a777f;
+  -webkit-animation-name: bar-slide;
+  -webkit-animation-duration: 30s;
+  -webkit-animation-iteration-count: infinite;
+  -webkit-animation-timing-function: linear;
 }
