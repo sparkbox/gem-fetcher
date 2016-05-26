@@ -56,7 +56,7 @@ var app = (function() {
       $('.bar-timer').show();
       $('.bar-inner-hold').addClass('bar-inner');
     }
-    show = setInterval(runShow, SHOW_TIMEOUT);
+    show = setTimeout(runShow, SHOW_TIMEOUT);
     getRandom();
   }
 
@@ -80,6 +80,9 @@ var app = (function() {
         gemIndex = 0;
     if (hash) {
       gemIndex = hash.replace('#', '');
+      if (gemIndex === 'latest') {
+        gemIndex = data.length - 1;
+      }
     } else {
       gemIndex = Math.floor((Math.random() * data.length) + 1);
     }
@@ -91,12 +94,11 @@ var app = (function() {
   }
 
   function setGem(gem, id) {
+    window.location.hash = id;
     $('.gem').html(fixedGem(gem));
     $('.linky').attr('href', '#' + id).text('Link this Gem!');
-    window.location.hash = id;
-    // history.pushState(null, null, '#' + id);
     emojify.run();
-  }
+}
 
   function fixedGem(gem) {
     return gem.replace(/\r?\\n/g, '<br>').replace(/\\"/g, '"').replace('"&gt;', '');
