@@ -2,6 +2,9 @@ var app = (function() {
 
   var data = null,
       show = null,
+      dmap = null,
+      dmapMax = 0;
+      dmapIterator = 0;
       SHOW_TIMEOUT = 30 * 1000 ; // 30 seconds
 
   function getData() {
@@ -10,6 +13,8 @@ var app = (function() {
       url: '/data/gems-approved.json',
       success: function(d) {
         data = d;
+        dmapMax = data.length - 1;
+        dmap = _.shuffle(range(0, dmapMax));
         loader();
       }
     });
@@ -86,7 +91,12 @@ var app = (function() {
         gemIndex = data.length - 1;
       }
     } else {
-      gemIndex = Math.floor((Math.random() * data.length) + 1);
+      gemIndex = dmap[dmapIterator]
+      dmapIterator++;
+      if (dmapIterator > dmapMax) {
+        dmapIterator = 0;
+      }
+      // gemIndex = Math.floor((Math.random() * data.length) + 1);
     }
     return gemIndex;
   }
@@ -99,7 +109,7 @@ var app = (function() {
     window.location.hash = id;
     $('.gem').html(fixedGem(gem));
     $('.linky').attr('href', '#' + id).text('Link this Gem!');
-    emojify.run();
+    // emojify.run();
 }
 
   function fixedGem(gem) {
@@ -114,7 +124,13 @@ var app = (function() {
     }
   })();
 
-
+  function range(start, end) {
+    var foo = [];
+    for (var i = start; i <= end; i++) {
+        foo.push(i);
+    }
+    return foo;
+  }
 
   return {
     loader: loader
