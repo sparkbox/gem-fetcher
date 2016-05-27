@@ -1,6 +1,8 @@
 task :default => [:run]
 
+require './bin/fetch-gems'
+
 task :run do
-    ruby "bin/fetch-gems.rb"
+  GemGetter.fetch
 end
 
