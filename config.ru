@@ -1,8 +1,11 @@
+require './bin/fetch-gems'
+
 use Rack::Static,
   :urls => ["/images", "/js", "/css", "/data"],
   :root => "public"
 
 run lambda { |env|
+  GemGetter.fetch
   [
     200,
     {
