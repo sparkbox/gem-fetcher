@@ -37,7 +37,7 @@ class GemGetter
     messages.each do |message|
       if reactions = message["reactions"]
         reactions.each do |r|
-          if r["name"] == "earth_americas"
+          if  /^earth_*/.match(r["name"])
             user_name = $users[message["user"]]
             text = message["text"].inspect
 
@@ -58,3 +58,4 @@ class GemGetter
     data["has_more"]
   end
 end
+
