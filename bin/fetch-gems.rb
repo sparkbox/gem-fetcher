@@ -63,7 +63,7 @@ class GemGetter
           end
         end
         if has_public and !disapproved
-          $messages.push("#{start_text}#{text}")
+          $messages.push("#{text}")
           puts "gem count #{$messages.count}"
         end
       end

@@ -91,7 +91,7 @@ var app = (function() {
         gemIndex = data.length - 1;
       }
     } else {
-      gemIndex = dmap[dmapIterator]
+      gemIndex = dmap[dmapIterator];
       dmapIterator++;
       if (dmapIterator > dmapMax) {
         dmapIterator = 0;
@@ -121,6 +121,7 @@ var app = (function() {
       getData();
     } else {
       loader();
+      window.onhashchange = loader;
     }
   })();
 
