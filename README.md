@@ -1,4 +1,4 @@
-# gem-randomizer
+# gem-fetcher
 
 This project fetches "gems" from slack into a json data file.
 
