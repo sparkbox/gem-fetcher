@@ -110,7 +110,14 @@ var app = (function() {
     $('.gem').html(fixedGem(gem));
     $('.linky').attr('href', '#' + id).text('Link this Gem!');
     // emojify.run();
-}
+  }
+
+  function printGems() {
+    for(var i = 0; i < data.length; i++) {
+      $('#text').append('<p>' + fixedGem(data[i]) + '</p>');
+      $('#text').css('background-color', '#fff').show();
+    }
+  }
 
   function fixedGem(gem) {
     return gem.replace(/\r?\\n/g, '<br>').replace(/(\")|(\\)|(\”)|(\“)/g, '').replace(/\&gt\;/g, '');
@@ -134,6 +141,7 @@ var app = (function() {
   }
 
   return {
-    loader: loader
+    loader: loader,
+    printGems: printGems
   };
 })();
