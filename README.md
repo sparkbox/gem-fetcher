@@ -8,6 +8,9 @@ This project fetches "gems" from slack into a json data file.
 
 - `bundle install `
 
+## Setup
+Create a copy of `.env-sample` and name it `.env`. You will need a Slack API token which you can find in 1Password as "dev-gem-me-bot SLACK API Token".
+
 
 ## Run
 

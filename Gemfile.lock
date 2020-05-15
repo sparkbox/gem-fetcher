@@ -31,3 +31,9 @@ DEPENDENCIES
   rack
   rake
   slack-api
+
+RUBY VERSION
+   ruby 2.3.1p112
+
+BUNDLED WITH
+   2.0.1
