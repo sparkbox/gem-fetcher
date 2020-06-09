@@ -2,7 +2,7 @@ require './bin/fetch-gems'
 require 'rack/rewrite'
 
 use Rack::Rewrite do
-  r301 %r{.*}, 'https://localhost:9292', :scheme => 'http'
+  r301 %r{.*}, 'https://gems.seesparkbox.com/', :scheme => 'http'
 end
 
 use Rack::Static,
