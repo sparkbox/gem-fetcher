@@ -6,7 +6,11 @@ require "fileutils"
 Dotenv.load
 
 token = ENV["TOKEN"] || (print "Token: "; gets.strip)
-$client = Slack::Client.new token: token
+Slack.configure do |config|
+  config.token = token
+end
+
+$client = Slack::Web::Client.new token: token
 
 # Get users list
 puts 'fetching latest data...'
@@ -22,7 +26,7 @@ class Client
   end
 
   def history
-    slack.channels_history channel: GEMS_CHANNEL_ID, count: 1000, latest: timestamp, inclusive: true
+    slack.conversations_history channel: GEMS_CHANNEL_ID, count: 1000, latest: timestamp, inclusive: true
   end
 
   def messages
@@ -42,7 +46,7 @@ class Client
   private
 
   def slack
-    @slack ||= Slack::Client.new(token: ENV["TOKEN"])
+    @slack ||= Slack::Web::Client.new(token: ENV["TOKEN"])
   end
 end
 
