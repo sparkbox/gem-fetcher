@@ -1,8 +1,17 @@
 require './bin/fetch-gems'
 require 'rack/rewrite'
 
+def is_a_review_app?(rack_env)
+  rack_env['SERVER_NAME'].end_with? 'herokuapp.com'
+end
+
 use Rack::Rewrite do
-  r301 %r{.*}, 'https://gems.seesparkbox.com/', :scheme => 'http'
+  r301 %r{.*}, 'https://gems.sparkbox.com/', :scheme => 'http'
+
+  r301 %r{.*}, 'https://gems.sparkbox.com$&', :if => Proc.new {|rack_env|
+    rack_env['SERVER_NAME'] != 'gems.sparkbox.com' &&
+      !is_a_review_app?(rack_env)
+  }
 end
 
 use Rack::Static,
